@@ -43,15 +43,15 @@ def scn_train(aTrain,dLevel,nTopGenes = 100,nTopGenePairs = 100,nRand = 100, nTr
     expRaw = expRaw.loc[stTrain.index.values]
 
     adNorm = aTrain.copy()
-    sc.pp.normalize_per_cell(adNorm, counts_per_cell_after=counts_per_cell_after)
-    sc.pp.log1p(adNorm)
+#     sc.pp.normalize_per_cell(adNorm, counts_per_cell_after=counts_per_cell_after)
+#     sc.pp.log1p(adNorm)
 
     print("HVG")
     if limitToHVG:
         sc.pp.highly_variable_genes(adNorm, min_mean=0.0125, max_mean=4, min_disp=0.5)
         adNorm = adNorm[:, adNorm.var.highly_variable]
 
-    sc.pp.scale(adNorm, max_value=scaleMax)
+#     sc.pp.scale(adNorm, max_value=scaleMax)
     expTnorm= pd.DataFrame(data=adNorm.X,  index= adNorm.obs.index.values, columns= adNorm.var.index.values)
     expTnorm=expTnorm.loc[stTrain.index.values]
 
